@@ -19,7 +19,8 @@ N = 500;
 
 %%
 
-[is_feasible, stop_at] = CRX_feasible_moveL(kin, R_path, T_path, 280)
+% [is_feasible, stop_at] = CRX_feasible_moveL(kin, R_path, T_path, 280)
+[is_feasible, stop_at] = CRX_feasible_moveL(kin, R_path, T_path, [])
 
 %%
 
