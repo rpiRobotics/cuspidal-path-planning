@@ -1,5 +1,5 @@
 % q = rand_angle([3 1])
-kin = define_cuspidal_3R();
+kin = cuspidal_3R.get_kin();
 
 
 % q1 = [-1.8; -2.8; 1.9];
@@ -14,5 +14,5 @@ kin = define_cuspidal_3R();
 
 p = [2.5; 0; 0.5]
 
-Q_t = IK_3R(p, kin)
+Q_t = cuspidal_3R.IK_3R(p, kin)
 

@@ -1,4 +1,4 @@
-function kin = define_cuspidal_3R()
+function kin = get_kin()
     ex = [1; 0; 0];
     ey = [0; 1; 0];
     ez = [0; 0; 1];

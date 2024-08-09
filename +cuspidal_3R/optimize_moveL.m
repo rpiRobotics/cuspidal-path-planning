@@ -1,7 +1,7 @@
 % pose_0 = [0; 0; 0; 0; 0];
 % pose_0 = [0.2;0.2;0.2; pi/2; 0];
 pose_0 = [0.2;0.2;0.2; 0;-1;0];
-kin = define_cuspidal_3R;
+kin = cuspidal_3R.get_kin;
 
 options = optimset('PlotFcns',@optimplotfval);
 pose = fminsearch(@(pose)moveL_norm(pose(1:3), pose(4:6), kin), pose_0, options);
@@ -34,7 +34,7 @@ function [q_dot_norm, Q_path, G] = moveL_norm(p, axang, kin)
     N = 100;
     lambda = linspace(0, 1, N);
     p_path = lambda.*p_B + (1-lambda).*p_A;
-    Q_path = generate_Q_path_3R(kin, p_path);
+    Q_path = cuspidal_3R.generate_Q_path(kin, p_path);
     % Need to have at least 1 starting and ending point
     if all( isnan(Q_path(:,:,1)))
      return
@@ -42,7 +42,7 @@ function [q_dot_norm, Q_path, G] = moveL_norm(p, axang, kin)
     if all( isnan(Q_path(:,:,end)))
      return
     end
-    [G, start_nodes, end_nodes] = generate_path_graph_3R(Q_path);
+    [G, start_nodes, end_nodes] = cuspidal_3R.generate_path_graph(Q_path);
 
     % For each start node, find connected end nodes
     for i = 1:length(start_nodes)

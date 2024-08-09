@@ -1,4 +1,4 @@
-kin = define_cuspidal_3R;
+kin = cuspidal_3R.get_kin;
 
 p_1 = [1; 0; 0]; % 0 feasible
 p_2 = [4; 0; 0];
@@ -15,7 +15,7 @@ q1_path = NaN(4, N);
 q2_path = NaN(4, N);
 q3_path = NaN(4, N);
 for i=1:N
-    Q_i = IK_3R(p_path(:, i), kin);
+    Q_i = cuspidal_3R.IK(p_path(:, i), kin);
     q1_path(1:width(Q_i), i) = Q_i(1,:);
     q2_path(1:width(Q_i), i) = Q_i(2,:);
     q3_path(1:width(Q_i), i) = Q_i(3,:);
