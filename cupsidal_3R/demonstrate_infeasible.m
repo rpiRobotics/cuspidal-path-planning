@@ -1,10 +1,10 @@
 kin = define_cuspidal_3R;
 
-% p_1 = [1; 0; 0]; % 0 feasible
-% p_2 = [4; 0; 0];
+p_1 = [1; 0; 0]; % 0 feasible
+p_2 = [4; 0; 0];
 
-p_1 = [2; 0; 0]; % 2 feasible
-p_2 = [1; 0; 0];
+% p_1 = [2; 0; 0]; % 2 feasible
+% p_2 = [1; 0; 0];
 
 N = 1e3;
 lambda = linspace(0, 1, N);
@@ -21,8 +21,8 @@ for i=1:N
     q3_path(1:width(Q_i), i) = Q_i(3,:);
 end
 
-% plot(lambda, q1_path' , '.k');
-plot(lambda, q1_path');
+plot(lambda, q1_path' , '.k');
+% plot(lambda, q1_path');
 ylim([-pi, pi]);
 ylabel("q_1");
 xlabel("\lambda");

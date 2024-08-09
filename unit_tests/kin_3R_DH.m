@@ -1,3 +1,5 @@
+% Make sure 3R kinematic parameters (using POE) match given DH parameters
+
 alpha_vec = [-sym(pi)/2, sym(pi)/2, 0];
 a_vec = [1, 2, 3/2];
 d_vec =[0 1 0];
