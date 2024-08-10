@@ -28,7 +28,7 @@ ylim([-pi pi])
 % yline(Q_path(4,  9  ,end), 'r');
 
 %%
-[G, start_nodes, end_nodes] = yumi.generate_path_graph(Q_path)
+[G, start_nodes, end_nodes] = generate_path_graph(Q_path)
 
 %%
 for i = 1:length(start_nodes)

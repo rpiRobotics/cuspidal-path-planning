@@ -1,9 +1,10 @@
 function plot_path_graph(G, Q_path, joint_display)
     N_solns = width(Q_path);
+    N = length(Q_path);
 
     XData = [];
     YData = [];
-    N = length(Q_path);
+
     for i = 1:N
         for j = 1:N_solns
             if any(isnan(Q_path(:,j,i)))
@@ -19,7 +20,7 @@ function plot_path_graph(G, Q_path, joint_display)
     YData = [zeros([1 N_solns]) YData];
 
     % Node 2 is the finish node
-    XData(2) = length(Q_path) + 1;
+    XData(2) = N + 1;
     
     N_nodes = numnodes(G);
     plot(G, XData=XData(1:N_nodes), YData=YData(1:N_nodes));

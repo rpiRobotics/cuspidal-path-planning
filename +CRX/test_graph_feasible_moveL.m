@@ -17,9 +17,14 @@ N = 500;
 
 [R_path, T_path] = CRX.generate_6DOF_moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, N);
 %%
-
-
 Q_path = CRX.generate_Q_path(kin, R_path, T_path);
+
+%%
+G = generate_path_graph(Q_path);
+
+%%
+
+plot_path_graph(G, Q_path, 4)
 %%
 plot(squeeze(Q_path(4,:,:))', 'k.')
 xlabel("path index")
@@ -29,39 +34,7 @@ ylim([-pi pi])
 % yline(Q_path(4,  8  ,1), 'g');
 % yline(Q_path(4,  9  ,end), 'r');
 
-%% 
-[G, start_nodes, end_nodes] = CRX.generate_path_graph(Q_path);
+
 
 %%
-for i = 1:length(start_nodes)
-    for j = 1:length(end_nodes)
-        P = shortestpath(G, start_nodes(i), end_nodes(j));
-        if ~isempty(P)
-            disp(string(i)+ ", " + string(j))
-        end
-    end
-end
-
-%%
-
-XData = [];
-YData = [];
-N = length(Q_path);
-for i = 1:N
-    for j = 1:12
-        XData = [XData i];
-        YData = [YData Q_path(4, j, i)];
-    end
-end
-XData = [zeros([1 12]) XData];
-YData = [zeros([1 12]) YData];
-YData(isnan(YData)) = 0;
-XData(isnan(XData)) = 0;
-
-plot(G, XData=XData(1:6008), YData=YData(1:6008))
-
-%%
-P = shortestpath(G, 19, 6008)
-
-%%
-TR = shortestpathtree(G, 19)
+P = shortestpath(G, 1, 2)

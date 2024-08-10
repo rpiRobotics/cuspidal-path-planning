@@ -22,6 +22,6 @@ function [q_dot_norm, Q_path, G] = moveL_norm(p, axang, kin)
     p_path = cuspidal_3R.generate_moveL(p_A, p_B, N);
     Q_path = cuspidal_3R.generate_Q_path(kin, p_path);
 
-    G = cuspidal_3R.generate_path_graph(Q_path);
+    G = generate_path_graph(Q_path);
     [~, q_dot_norm] = shortestpath(G, 1, 2);
 end

@@ -48,7 +48,7 @@ for j = (i+1):min(i+5, N)
 end
 end
 
-N_nodes = max(2, numel(tails));
+N_nodes = max([2 heads]);
 G = digraph(tails, heads, weights, N_nodes);
 
 end
