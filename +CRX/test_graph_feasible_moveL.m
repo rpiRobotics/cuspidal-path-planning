@@ -15,11 +15,11 @@ q_A = [2.0323    1.2241   -1.1492    2.8288   -2.9252   -0.3849   -0.7442]'; % 1
 
 N = 500;
 
-[R_path, T_path] = generate_6DOF_moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, N);
+[R_path, T_path] = CRX.generate_6DOF_moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, N);
 %%
 
 
-Q_path = CRX_generate_Q_path(kin, R_path, T_path);
+Q_path = CRX.generate_Q_path(kin, R_path, T_path);
 %%
 plot(squeeze(Q_path(4,:,:))', 'k.')
 xlabel("path index")
@@ -30,7 +30,7 @@ ylim([-pi pi])
 % yline(Q_path(4,  9  ,end), 'r');
 
 %% 
-[G, start_nodes, end_nodes] = CRX_generate_path_graph(Q_path);
+[G, start_nodes, end_nodes] = CRX.generate_path_graph(Q_path);
 
 %%
 for i = 1:length(start_nodes)

@@ -1,4 +1,4 @@
-function [is_feasible, stop_at] = CRX_feasible_moveL(kin, R_path, T_path, i_ignore)
+function [is_feasible, stop_at] = feasible_moveL(kin, R_path, T_path, i_ignore)
 
 THRESH = 5e-2;
 
