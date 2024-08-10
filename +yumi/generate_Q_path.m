@@ -1,4 +1,4 @@
-function Q_path = yumi_generate_Q_path(kin, R_path, T_path, psi_path)
+function Q_path = generate_Q_path(kin, R_path, T_path, psi_path)
 
 % LS_thresh = 1e-2;
 

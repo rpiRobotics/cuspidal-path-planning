@@ -1,4 +1,4 @@
-function [G, start_nodes, end_nodes] = yumi_generate_path_graph(Q_path)
+function [G, start_nodes, end_nodes] = generate_path_graph(Q_path)
 THRESH = 1;
 sz = size(Q_path);
 N = sz(3);

@@ -13,11 +13,11 @@ SEW = sew_conv([0;0;1]);
 % Q_i = SEW_IK.IK_gen_7_dof_mex(R_1, T_1, SEW, psi_1, kin)
 
 N = 100;
-[R_path, T_path, psi_path] = generate_7DOF_moveL(R_A, R_B, T_A, T_B, psi_A, psi_B, N);
+[R_path, T_path, psi_path] = yumi.generate_7DOF_moveL(R_A, R_B, T_A, T_B, psi_A, psi_B, N);
 
 
 
-Q_path = yumi_generate_Q_path(kin, R_path, T_path, psi_path);
+Q_path = yumi.generate_Q_path(kin, R_path, T_path, psi_path);
 
 plot(squeeze(Q_path(4,:,:))', 'k.')
 xlabel("path index")
@@ -28,7 +28,7 @@ ylim([-pi pi])
 % yline(Q_path(4,  9  ,end), 'r');
 
 %%
-[G, start_nodes, end_nodes] = yumi_generate_path_graph(Q_path)
+[G, start_nodes, end_nodes] = yumi.generate_path_graph(Q_path)
 
 %%
 for i = 1:length(start_nodes)
