@@ -1,4 +1,4 @@
-function [R_path, T_path] = generate_6DOF_moveL(R_A, R_B, T_A, T_B, N)
+function [R_path, T_path] = generate_moveL(R_A, R_B, T_A, T_B, N)
 
     lambda = linspace(0, 1, N);
     

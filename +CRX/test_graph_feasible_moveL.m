@@ -15,7 +15,7 @@ q_A = [2.0323    1.2241   -1.1492    2.8288   -2.9252   -0.3849   -0.7442]'; % 1
 
 N = 500;
 
-[R_path, T_path] = CRX.generate_6DOF_moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, N);
+[R_path, T_path] = CRX.generate_moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, N);
 %%
 Q_path = CRX.generate_Q_path(kin, R_path, T_path);
 
