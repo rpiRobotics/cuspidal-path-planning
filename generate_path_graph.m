@@ -29,7 +29,7 @@ end
 
 for i = 1:(N-1)
     % disp(i)
-for j = (i+1):min(i+5, N)
+for j = (i+1):min(i+1, N) % TODO was 5
     Q_i = Q_path(:,:,i);
     Q_j = Q_path(:,:,j);
 
