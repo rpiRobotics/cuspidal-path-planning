@@ -1,8 +1,10 @@
-function [p_path, R_path] = helix()
+function [p_path, R_path] = helix(N)
+arguments
+    N = 500
+end
 R = 0.1;
 H = 0.3;
 TURNS = 5;
-N = 500;
 
 
 lambda = linspace(0,1,N);
