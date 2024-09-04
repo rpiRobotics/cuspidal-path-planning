@@ -1,5 +1,5 @@
-orig = [0.7013    1.8369   -0.6936   -1.6368   -0.5241    1.5935]';
-optimized = [0.8462    2.2120    0.0234    0.1465   -2.5520   -2.4581]';
+pose_0 = [0.7013    1.8369   -0.6936  0.3884   -0.6435   -0.2061]';
+optimized =[-0.19328340028517898563364951769472, 0.15472249611146848824461130789132, -4.4200684503758260746053565526381, 1716.7136288001620414434000849724, 1277.3946329562686514691449701786, -1143.6160441060003449820214882493]';
 
 kin = cuspidal_3R.get_kin();
 q = zeros([3 1]);
@@ -16,8 +16,7 @@ axis on
 
 diagrams.redraw(); hold off
 
-function plot_helix_path(p, axang, p_path_orig, varargin)
-    R = rot(axang/norm(axang), norm(axang));
-    p_path = p + R*p_path_orig;
+function plot_helix_path(p, quat_XY, p_path_orig, varargin)
+    p_path = cuspidal_3R.quat_offset_path(p, quat_XY, p_path_orig);
     diagrams.utils.plot3_mat(p_path, varargin{:});
 end

@@ -43,8 +43,7 @@ end
 %%
 
 function [q_dot_norm, Q_path, G] = path_norm(p, quat_XY, p_path_orig, kin)
-    R = quat2rotm([quat_XY' 0]); % Auto-normalize
-    p_path = R*(p + p_path_orig); % Careful - position then rotation
+    p_path = cuspidal_3R.quat_offset_path(p, quat_XY, p_path_orig);
     Q_path = cuspidal_3R.generate_Q_path(kin, p_path);
 
     G = generate_path_graph(Q_path);
