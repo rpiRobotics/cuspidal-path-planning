@@ -3,7 +3,6 @@ kin = define_CRX;
 [p_path_orig, R_path_orig] = example_toolpath.helix(1000);
 
 %% Find a feasible initial guess
-% -0.0270    0.0015   -0.9529   -0.0709   -0.1301   -0.0192
 
 for i = 1:100
     [~, p] = fwdkin(kin, [0; rand_angle([5 1])]);
@@ -18,7 +17,7 @@ for i = 1:100
 end
 %%
 
-initial_guess = [-0.0270    0.0015   -0.9529   -0.0709   -0.1301   -0.0192]';
+initial_guess = [0.1453    0.9265   -0.2172    0.4074    0.1676   -1.2581]';
 
 %% Plot initial guess (q vs lambda)
 
@@ -48,16 +47,14 @@ hold off
 %% Optimize
 
 options = optimset('PlotFcns',@optimplotfval);
-pose = fminsearch(@(pose)path_norm(pose(1:3), pose(4:6), p_path_orig, R_path_orig, kin), initial_guess, options);
+optimized = fminsearch(@(pose)path_norm(pose(1:3), pose(4:6), p_path_orig, R_path_orig, kin), initial_guess, options);
 
 % 125 iterations
 % [-0.0023   -0.0023   -1.1021   -0.0151    0.0204   -0.0889]';
 %%
 
-function [q_dot_norm, Q_path, G] = path_norm(p, axang, p_path_orig, R_path_orig, kin)
-    R = rot(axang/norm(axang), norm(axang));
-    p_path = p + R*p_path_orig;
-    R_path = pagemtimes(R,R_path_orig);
+function [q_dot_norm, Q_path, G] = path_norm(p, quat_XY, p_path_orig, R_path_orig, kin)
+    [R_path, p_path] = CRX.quat_offset_path(p, quat_XY, R_path_orig, p_path_orig);
     Q_path = CRX.generate_Q_path(kin, R_path, p_path);
 
     G = generate_path_graph(Q_path);
