@@ -15,16 +15,16 @@ q_A = [2.0323    1.2241   -1.1492    2.8288   -2.9252   -0.3849   -0.7442]'; % 1
 
 N = 500;
 
-[R_path, T_path] = CRX.generate_moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, N);
+[R_path, T_path] = example_toolpath.moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, [], [], N);
 %%
 Q_path = CRX.generate_Q_path(kin, R_path, T_path);
 
 %%
-G = generate_path_graph(Q_path);
+G = graph_path_planning.generate_path_graph(Q_path);
 
 %%
 
-plot_path_graph(G, Q_path, 4)
+graph_path_planning.plot_path_graph(G, Q_path, 4)
 %%
 plot(squeeze(Q_path(4,:,:))', 'k.')
 xlabel("path index")
