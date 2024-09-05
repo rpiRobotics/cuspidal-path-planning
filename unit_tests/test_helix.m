@@ -1,12 +1,12 @@
 %% Plot just position part
-p_path = example_toolpath.helix();
+[~, p_path] = example_toolpath.helix();
 
 plot3(p_path(1,:), p_path(2,:), p_path(3,:), '-x');
 axis equal
 
 %% Plot position and rotation
 
-[p_path, R_path] = example_toolpath.helix();
+[R_path, p_path] = example_toolpath.helix();
 
 diagrams.setup(); hold on
 diagrams.utils.plot3_mat(p_path);
