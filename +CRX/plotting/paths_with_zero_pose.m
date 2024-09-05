@@ -1,5 +1,23 @@
 kin = define_CRX;
 q = zeros([6 1]);
+CRX.initial_poses;
+CRX.optimized_poses;
+
+%% moveL
+
+pose_0 = moveL_pose_0;
+optimized = moveL_optimized;
+[R_path_orig, p_path_orig] = example_toolpath.moveL(eye(3), eye(3), [0;0;0], [0;0;0.5], [], [], 100);
+
+%% Helix
+
+pose_0 = helix_pose_0;
+optimized = helix_optimized;
+[R_path_orig, p_path_orig] = example_toolpath.helix(200);
+
+
+%%
+
 
 diagrams.setup(); hold on
 
@@ -8,27 +26,17 @@ diagrams.robot_plot(kin, q, ...
     'cyl_half_length', 0.1, ...
     'cyl_radius', 0.05);
 
-initial = [0.2;0.2;0.2; 0;-1;0];
-final = [1.1275   -0.0573   -0.2173   -0.0022   -0.0080    0.0004]';
-
-p_A = plot_moveL_path(initial(1:3), initial(4:6), 'color', diagrams.colors.red);
+p_A = plot_path(pose_0(1:3), pose_0(4:6), p_path_orig, 'color', diagrams.colors.red);
 diagrams.text(p_A, "Starting");
 
-p_A = plot_moveL_path(final(1:3),final(4:6), 'color', diagrams.colors.green);
+p_A = plot_path(optimized(1:3),optimized(4:6), p_path_orig, 'color', diagrams.colors.green);
 diagrams.text(p_A, "Optimized");
 diagrams.redraw(); hold off
 grid on
 axis on
 
-function p_A=plot_moveL_path(p, quat_XY, varargin)
-    R = quat2rotm([quat_XY' 0]); % Auto-normalize
-
-    p_A = R*p;
-    p_B = R*(p + [0;0;0.5]);
-
-    % N = 100;
-    % p_path = cuspidal_3R.generate_moveL(p_A, p_B, N);
-    p_path = [p_A p_B];
-
+function p_A = plot_path(p, quat_XY, p_path_orig, varargin)
+    [~, p_path] = graph_path_planning.quat_offset_path(p, quat_XY, [], p_path_orig);
     diagrams.utils.plot3_mat(p_path, varargin{:});
+    p_A = p_path(:,1);
 end

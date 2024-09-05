@@ -2,11 +2,11 @@ kin = define_CRX;
 CRX.initial_poses;
 %% moveL
 pose_0 = moveL_pose_0;
-[~, p_path_orig] = example_toolpath.moveL(eye(3), eye(3), [0;0;0], [0;0;0.5], [], [], 100);
+[R_path_orig, p_path_orig] = example_toolpath.moveL(eye(3), eye(3), [0;0;0], [0;0;0.5], [], [], 100);
 
 %% Helix
 pose_0 = helix_pose_0;
-[R_path_orig, p_path_orig] = example_toolpath.helix(1000);
+[R_path_orig, p_path_orig] = example_toolpath.helix(500);
 
 %% Find a feasible initial guess
 
@@ -30,8 +30,8 @@ optimized = fminsearch(@(pose)CRX.path_norm(pose(1:3), pose(4:6), p_path_orig, R
 
 %%
 
-pose = pose_0;
-% pose = optimized;
+% pose = pose_0;
+pose = optimized;
 [q_dot_norm, Q_path, G] = CRX.path_norm(pose(1:3), pose(4:6), p_path_orig, R_path_orig, kin);
 graph_path_planning.plot_path_graph(G, Q_path, 2);
 

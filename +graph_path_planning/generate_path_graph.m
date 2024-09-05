@@ -1,5 +1,5 @@
 function [G, start_nodes, end_nodes] = generate_path_graph(Q_path)
-THRESH = 1e-1;
+THRESH = 1e-1 * norm(ones(1, height(Q_path))); % More DOF means higher THRESH
 sz = size(Q_path);
 N = sz(3);
 W = sz(2);
