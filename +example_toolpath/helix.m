@@ -1,4 +1,4 @@
-function [p_path, R_path] = helix(N)
+function [R_path, p_path] = helix(N)
 arguments
     N = 500
 end

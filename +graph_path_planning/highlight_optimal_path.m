@@ -1,5 +1,5 @@
 function Q_optimal = highlight_optimal_path(G, Q_path)
-    plot_path_graph(G, Q_path, 2); hold on;
+    graph_path_planning.plot_path_graph(G, Q_path, 2); hold on;
     [P, q_dot_norm] = shortestpath(G, 1, 2);
     
     Q_optimal = NaN(height(Q_path), length(Q_path));
