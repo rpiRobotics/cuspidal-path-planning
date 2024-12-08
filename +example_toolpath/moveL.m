@@ -1,6 +1,12 @@
-function [R_path, T_path, psi_path] = moveL(R_A, R_B, T_A, T_B, psi_A, psi_B, N)
+function [R_path, T_path, psi_path] = moveL(R_A, R_B, T_A, T_B, psi_A, psi_B, N_or_lambda)
 
-    lambda = linspace(0, 1, N);
+    if isscalar(N_or_lambda)
+        N = N_or_lambda;
+        lambda = linspace(0, 1, N);
+    else
+        lambda = N_or_lambda;
+        N = numel(lambda);
+    end
     
     T_path = lambda .* T_B + (1-lambda) .* T_A;
     
