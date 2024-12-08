@@ -66,7 +66,7 @@ nonsingular.r_path = vecnorm(nonsingular.p_path([1 2],:));
 h_fig = figure(10);
 tiledlayout(1,1,'TileSpacing','none','Padding','compact');
 nexttile
-figure_size = 2*[2.5 3];
+figure_size = 2*[2.5 2.45];
 set(h_fig, "Units", "inches")
 pos_old = h_fig.OuterPosition;
 if ~all(pos_old(3:4) == figure_size)
@@ -133,9 +133,9 @@ plot([nonsingular.Q_A(2) nonsingular.Q_B(2)], [nonsingular.Q_A(3) nonsingular.Q_
 xlabel("$q_2$", Interpreter='latex');
 ylabel("$q_3$", Interpreter='latex');
 yticks([-pi -pi/2 0 pi/2 pi]);
-yticklabels({'$-\pi$', '$-\pi/2$', '$0$', '$\pi/2$','$\pi$'})
+yticklabels({'$-\pi$', '$-\frac{\pi}{2}$', '$0$', '$\frac{\pi}{2}$','$\pi$'})
 xticks([-pi -pi/2 0 pi/2 pi]);
-xticklabels({'$-\pi$', '$-\pi/2$', '$0$', '$\pi/2$','$\pi$'})
+xticklabels({'$-\pi$', '$-\frac{\pi}{2}$', '$0$', '$\frac{\pi}{2}$','$\pi$'})
 
 fontsize(2*8, 'points')
 xaxisproperties= get(gca, 'XAxis');
@@ -155,7 +155,7 @@ diagrams.save(gcf, "joint_space_grid")
 h_fig = figure(10);
 tiledlayout(1,1,'TileSpacing','none','Padding','compact');
 nexttile
-figure_size = 2*[1.5 3];
+figure_size = 2*[1.5 2.45];
 set(h_fig, "Units", "inches")
 pos_old = h_fig.OuterPosition;
 if ~all(pos_old(3:4) == figure_size)
