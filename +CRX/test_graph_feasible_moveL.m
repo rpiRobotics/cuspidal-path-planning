@@ -25,6 +25,7 @@ G = graph_path_planning.generate_path_graph(Q_path);
 %%
 
 graph_path_planning.plot_path_graph(G, Q_path, 4)
+
 %%
 plot(squeeze(Q_path(4,:,:))', 'k.')
 xlabel("path index")
