@@ -1,6 +1,11 @@
-function plot_path_graph(G, Q_path, joint_display)
-    N_solns = width(Q_path);
-    N = length(Q_path);
+function plot_path_graph(G, Q_path, joint_display, lambda)
+    sz = size(Q_path);
+    N_solns = sz(2);
+    N = sz(3);
+    
+    if nargin == 3
+        lambda = 1:N;
+    end
 
     XData = [];
     YData = [];
@@ -11,7 +16,7 @@ function plot_path_graph(G, Q_path, joint_display)
                 XData = [XData 0];
                 YData = [YData 0];
             else
-                XData = [XData i];
+                XData = [XData lambda(i)];
                 YData = [YData Q_path(joint_display, j, i)];
             end
         end
@@ -20,7 +25,7 @@ function plot_path_graph(G, Q_path, joint_display)
     YData = [zeros([1 N_solns]) YData];
 
     % Node 2 is the finish node
-    XData(2) = N + 1;
+    XData(2) = lambda(N) + mode(diff(lambda));
     
     N_nodes = numnodes(G);
     plot(G, XData=XData(1:N_nodes), YData=YData(1:N_nodes));

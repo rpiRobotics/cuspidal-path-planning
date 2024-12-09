@@ -1,5 +1,15 @@
-function [G, start_nodes, end_nodes] = generate_path_graph(Q_path)
-THRESH = 1e-1 * norm(ones(1, height(Q_path))); % More DOF means higher THRESH
+function [G, start_nodes, end_nodes] = generate_path_graph(Q_path, opts)
+arguments
+    Q_path
+    opts.thresh = []
+    opts.det_J_path = []
+end
+
+if isempty(opts.thresh)
+    THRESH = 4e-1 * norm(ones(1, height(Q_path))); % More DOF means higher THRESH
+else
+    THRESH = opts.thresh;
+end
 sz = size(Q_path);
 N = sz(3);
 W = sz(2);
@@ -37,6 +47,14 @@ for j = (i+1):min(i+1, N) % TODO was 5
     % Careful to account for angle wrapping
     for x = 1:W
     for y = 1:W
+        if ~isempty(opts.det_J_path)
+            % don't connect if different signs of det(J)
+            S1 = sign(opts.det_J_path(x,i));
+            S2 = sign(opts.det_J_path(y,j));
+            if S1 * S2 < 0 % diff signs
+                continue
+            end
+        end
         weight_i = norm(wrapToPi(Q_i(:,x) - Q_j(:,y))) / (j-i);
         if weight_i < THRESH
             tails = [tails i*W+x];
