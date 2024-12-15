@@ -94,10 +94,11 @@ end
 q_A = [-0.8000    0.5900    2.3400    2.7200    1.0600   -1.8400]'
 q_B = [2.2599    2.1999    2.6677    2.5298   -2.5286    0.4831]'
 %%
-
-[R_1, p_1] = fwdkin(kin, q_A)
-[R_2, p_2] = fwdkin(kin, q_B)
-
+% 
+% [R_1, p_1] = fwdkin(kin, q_A)
+% [R_2, p_2] = fwdkin(kin, q_B)
+N = 100;
+lambda = linspace(0, 1,  N);
 det_path = NaN(1,N);
 q_path = lambda.*q_B + (1-lambda).*q_A;
 for i = 1:N
@@ -133,3 +134,21 @@ yaxisproperties= get(gca, 'YAxis');
 yaxisproperties.TickLabelInterpreter = 'latex';
 %%
 diagrams.save(gcf, "gofa_det_J")
+
+%%
+diagrams.setup(); hold on
+
+diagrams.robot_plot(kin, q_A, auto_scale=true, show_arrows = false, ...
+    show_arrow_labels=false, show_joint_labels=false, show_dots=false, ...
+    show_base_frame=true, show_task_frame=true, show_base_label=false, ...
+    show_task_label=false); 
+diagrams.robot_plot(kin, q_B, auto_scale=true, show_arrows = false, ...
+    show_arrow_labels=false, show_joint_labels=false, show_dots=false, ...
+    show_base_frame=false, show_task_frame=false, show_base_label=false, ...
+    show_task_label=false, link_color=diagrams.colors.dark_green); 
+
+view(118, 42);
+
+diagrams.redraw(); hold off
+%%
+diagrams.save(gcf, 'gofa_bots')
