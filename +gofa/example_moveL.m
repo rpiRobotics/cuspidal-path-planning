@@ -37,7 +37,10 @@ end
 % T_A = T_path(:,70)
 % T_B = T_path(:,90)
 %%
-N = 100;
+N = 200;
+% lambda = linspace(0,1,N);
+
+% extras = []/100
 
 [R_path, T_path] = example_toolpath.moveL(R_A, R_B, T_A, T_B, [], [], N);
 
@@ -106,6 +109,15 @@ findfigs
 
 % plot(lambda, squeeze(Q_path(4,:,:))', 'k.');
 G = graph_path_planning.generate_path_graph(Q_path, thresh = 2.5e-1);
+
+G = addedge(G, 1862, 1861, 0); % vertical top
+G = addedge(G, 1797, 1798, 0); % vertical bottom
+
+G = addedge(G, 2438, 2437, 0);
+G = addedge(G, 2898, 2900, 0);
+
+G = addedge(G, 3033, 3032, 0);
+
 graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 4, lambda=lambda, display_dots=false, display_SF=false);
 
 ylim([-pi pi]);
@@ -123,3 +135,7 @@ yline(0);
 
 %%
 diagrams.save(gcf, "gofa_ex10")
+
+%%
+graph_path_planning.plot_path_graph(G, Q_path, 4, lambda)
+    
