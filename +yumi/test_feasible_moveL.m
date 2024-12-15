@@ -13,12 +13,12 @@ kin = robot_kin.yumi;
 % Q_i = SEW_IK.IK_gen_7_dof_mex(R_1, T_1, SEW, psi_1, kin)
 
 N = 100;
-[R_path, T_path, psi_path] = yumi.generate_7DOF_moveL(R_A, R_B, T_A, T_B, psi_A, psi_B, N);
+[R_path, T_path, psi_path] = example_toolpath.moveL(R_A, R_B, T_A, T_B, psi_A, psi_B, N);
 
 
 
 Q_path = yumi.generate_Q_path(kin, R_path, T_path, psi_path);
-
+%%
 plot(squeeze(Q_path(4,:,:))', 'k.')
 xlabel("path index")
 ylabel("q_4")
@@ -28,11 +28,12 @@ ylim([-pi pi])
 % yline(Q_path(4,  9  ,end), 'r');
 
 %%
-[G, start_nodes, end_nodes] = generate_path_graph(Q_path)
+[G, start_nodes, end_nodes] = graph_path_planning.generate_path_graph(Q_path)
 %%
 
-plot_path_graph(G, Q_path, 3)
+graph_path_planning.plot_path_graph(G, Q_path, 3)
 %%
+SEW = sew_conv([0;0;1]);
 codegen +SEW_IK/IK_gen_7_dof.m -args {R_A, T_A, SEW, psi_A, kin}
 %%
 
