@@ -128,7 +128,7 @@ function diagrams_plot_path_graph(G, shortest_path, Q_path, joint_display, opts,
             end
             q_A = Q_i(:,i_A);
             q_B = Q_i(:,i_B);
-            if norm(wrapToPi(q_A - q_B)) < 0.1 && norm(q_A(joint_display) - q_B(joint_display)) < 0.1
+            if norm(wrapToPi(q_A - q_B)) < 0.5 && norm(q_A(joint_display) - q_B(joint_display)) < 0.1
                 plot([lambda_i lambda_i], [q_A(joint_display) q_B(joint_display)], lineOptions{:});
             end
         end
