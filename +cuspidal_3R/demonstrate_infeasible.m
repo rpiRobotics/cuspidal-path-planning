@@ -30,7 +30,11 @@ for i=1:N
 end
 
 q1_path(q1_path>2) = q1_path(q1_path>2)-2*pi; % Shift for better graph
-Q_path(Q_path>2) = Q_path(Q_path>2) - 2*pi;
+Q_path(Q_path>2) = Q_path(Q_path>2)-2*pi; 
+%% Generate det(J) vs lambda
+det_J_path = graph_path_planning.Q_to_det_J(Q_path, kin);
+
+plot(lambda, det_J_path', 'k.'); yline(0);
 %%
 h_fig = figure(10);
 tiledlayout(1,1,'TileSpacing','none','Padding','compact');
@@ -47,7 +51,7 @@ findfigs
 
 % plot(lambda, q1_path' , '.k');
 G = graph_path_planning.generate_path_graph(Q_path, thresh = 2.5e-1);
-graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 1, lambda=lambda, display_dots=false, display_SF=false);
+graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 1, lambda=lambda, display_dots=false, display_SF=false, bold_det_J=det_J_path);
 ylim([-5*pi/4, pi/4]);
 ylabel("$q_1$", Interpreter="latex");
 xlabel("$\lambda/L$", Interpreter="latex");
@@ -68,3 +72,14 @@ yaxisproperties.TickLabelInterpreter = 'latex';
 
 %%
 diagrams.save(gcf, "3R_infeasible")
+
+
+%% Manual plot with sign(det(J))
+
+q1_disp = squeeze(Q_path(1,:,:));
+
+q1_disp_pos = q1_disp;
+q1_disp_pos(sign(det_J_path)<0) = NaN;
+
+plot(lambda, q1_disp', 'k.'); hold on
+plot(lambda, q1_disp_pos', 'kx'); hold off
