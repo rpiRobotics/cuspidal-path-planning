@@ -97,21 +97,77 @@ ex = [1;0;0];
 ey = [0;1;0];
 ez = [0;0;1];
 zv = [0;0;0];
+P.kin.joint_type = zeros(1,6);
 P.kin.P = ...
 [        0    0.1000         0         0         0    0.3000         0
-         0    0.7000         0         0         0         0         0
-         0         0    0.4000    0.7000    0.7000    0.9000         0];
+         0    0.7000         0         0         0         0         0.5
+         0         0    0.7000    0.7000    0.7000    0.9000         0];
 P.kin.H = [ez ey ey ey ex ey];
+
+%%
+q_A = [-2.4000   -0.9000    1.1000   -0.8000    2.3000   -1.3000]';
+q_B = [ 0.9940   -1.4391    0.9530    1.2368    1.0004    1.5942]';
+
 %%
 
 diagrams.setup(); hold on
 
-diagrams.robot_plot(P.kin, q_B, auto_scale=true); 
+diagrams.robot_plot(P.kin, q_A, auto_scale=true, show_arrows = false, ...
+    show_arrow_labels=false, show_joint_labels=false, show_dots=false, ...
+    show_base_frame=true, show_task_frame=true, show_base_label=false, ...
+    show_task_label=false); 
+diagrams.robot_plot(P.kin, q_B, auto_scale=true, show_arrows = false, ...
+    show_arrow_labels=false, show_joint_labels=false, show_dots=false, ...
+    show_base_frame=false, show_task_frame=false, show_base_label=false, ...
+    show_task_label=false, link_color=diagrams.colors.dark_green); 
+
+view(43, 33);
+
 diagrams.redraw(); hold off
+
+%%
+diagrams.save(gcf, '3_parallel_bots')
 
 %%
 q_A'
 q_B'
+
+%%
+det_path = NaN(1,N);
+q_path = lambda.*q_B + (1-lambda).*q_A;
+for i = 1:N
+    J = robotjacobian(kin, q_path(:,i));
+    det_path(i) = det(J);
+end
+
+
+
+h_fig = figure(10);
+
+figure_size = 2*[3.5 1.5];
+set(h_fig, "Units", "inches")
+pos_old = h_fig.OuterPosition;
+if ~all(pos_old(3:4) == figure_size)
+set(h_fig, "OuterPosition", [pos_old(1:2)-figure_size+pos_old(3:4) figure_size])
+end
+set(h_fig, "Units", "pixels")
+findfigs
+
+tiledlayout(1,1,'TileSpacing','none','Padding','compact');
+nexttile
+
+plot(lambda, det_path, 'k')
+xlabel("$\lambda/L$", Interpreter="latex")
+ylabel("$\det(J)$", Interpreter="latex")
+ylim([-0.2, 0])
+
+fontsize(2*8, 'points')
+xaxisproperties= get(gca, 'XAxis');
+xaxisproperties.TickLabelInterpreter = 'latex';
+yaxisproperties= get(gca, 'YAxis');
+yaxisproperties.TickLabelInterpreter = 'latex';
+%%
+diagrams.save(gcf, '3_parallel_det_J')
 %%
 
 
