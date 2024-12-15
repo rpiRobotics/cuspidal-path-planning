@@ -13,21 +13,28 @@ q_B = [    1.0490    2.1330   -2.6428   -2.0174    2.4881    2.5346]';
 [R_06_B, p_0T_B] = fwdkin(kin, q_B);
 
 N = 10;
-N_HD = 500;
+
 
 [R_path, T_path] = example_toolpath.moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, [], [], N);
 Q_path = CRX.generate_Q_path(kin, R_path, T_path);
 
-[R_path_HD, T_path_HD] = example_toolpath.moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, [], [], N_HD);
+
+
+N_HD = 100;
+extras = ([2.695 9.08]-1)/(N-1);
+lambda_HD = linspace(0,1,N_HD);
+lambda_HD = sort([lambda_HD extras]);
+N_HD = N_HD + numel(extras);
+
+[R_path_HD, T_path_HD] = example_toolpath.moveL(R_06_A, R_06_B, p_0T_A, p_0T_B, [], [], lambda_HD);
 Q_path_HD = CRX.generate_Q_path(kin, R_path_HD, T_path_HD);
 
-
-
-plot(linspace(1,N, N_HD), squeeze(Q_path_HD(4,:,:))', 'g.'); hold on
+plot(1+lambda_HD*(N-1), squeeze(Q_path_HD(4,:,:))', 'g.'); hold on
 plot(1:N,                 squeeze(Q_path(4,:,:))', 'k.'); hold off
 xlabel("path index")
 ylabel("q_4")
 ylim([-pi pi])
+xlim([0 N+1])
 
 %%
 plot(squeeze(Q_path(6,:,:))', 'k.')
@@ -81,8 +88,12 @@ set(h_fig, "Units", "pixels")
 findfigs
 
 
-plot(linspace(1,N, N_HD), squeeze(Q_path_HD(4,:,:))', '.', color=0.8*diagrams.colors.white); hold on
-graph_path_planning.diagrams_plot_path_graph(G, P, Q_path, 4)
+% plot(linspace(1,N, N_HD), squeeze(Q_path_HD(4,:,:))', '.', color=0.8*diagrams.colors.white); hold on
+G_HD = graph_path_planning.generate_path_graph(Q_path_HD, det_J_path=graph_path_planning.Q_to_det_J(Q_path_HD, kin));
+graph_path_planning.diagrams_plot_path_graph(G_HD, [], Q_path_HD, 4, lambda=1+lambda_HD*(N-1), ...
+    display_dots=false, display_SF=false, skip_wraparound=true, lambda_add_vertical=1+extras*(N-1), ...
+    Color=0.7*diagrams.colors.white); hold on
+graph_path_planning.diagrams_plot_path_graph(G, P, Q_path, 4);
 ylabel("$q_4$", Interpreter="latex")
 xlabel("$k$", Interpreter="latex")
 
