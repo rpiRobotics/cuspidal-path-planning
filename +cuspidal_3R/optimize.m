@@ -8,7 +8,7 @@ pose_0 = moveL_pose_0;
 %% Helix
 
 pose_0 = helix_pose_0;
-[~, p_path_orig] = example_toolpath.helix();
+[~, p_path_orig] = example_toolpath.helix(H=1.2, R = 0.4);
 
 %%
 options = optimset('PlotFcns',@optimplotfval, 'TolFun', 1e-3, 'TolX', 1e-3);
@@ -37,6 +37,7 @@ for i = 1:100
         disp("Got it")
         disp(i)
         disp([p' quat_XY'])
+        pose_test = [p' quat_XY']'
         break
     end
 end

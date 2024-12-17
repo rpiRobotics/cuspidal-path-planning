@@ -3,9 +3,11 @@
 cuspidal_3R.initial_poses()
 cuspidal_3R.optimized_poses()
 %% Helix
-[~, p_path_orig] = example_toolpath.helix();
-pose_0 = helix_pose_0;
-optimized = helix_optimized;
+[~, p_path_orig] = example_toolpath.helix(H=1.2, R = 0.4);
+pose_0_A = helix_pose_0_A;
+optimized_A = helix_optimized_A;
+pose_0_B = helix_pose_0_B;
+optimized_B = helix_optimized_B;
 
 %% moveL
 [~, p_path_orig] = example_toolpath.moveL([], [], [0;0;0], [0;0;0.5], [], [], 100);
@@ -25,8 +27,11 @@ end
 set(h_fig, "Units", "pixels")
 findfigs
 
-plot_path(pose_0(1:3), pose_0(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
-plot_path(optimized(1:3), optimized(4:6), p_path_orig, 'color', diagrams.colors.green)
+plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
+plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.green)
+
+plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.red);
+plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.green)
 
 fplot(r_sing_A, z_sing_A, 'k');
 fplot(r_sing_B, z_sing_B, 'k'); 
