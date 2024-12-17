@@ -5,8 +5,8 @@ pose_0 = moveL_pose_0;
 [R_path_orig, p_path_orig] = example_toolpath.moveL(eye(3), eye(3), [0;0;0], [0;0;0.5], [], [], 100);
 
 %% Helix
-pose_0 = helix_pose_0;
-[R_path_orig, p_path_orig] = example_toolpath.helix(500);
+pose_0 = helix_pose_0_B;
+[R_path_orig, p_path_orig] = example_toolpath.helix(N = 500);
 
 %% Find a feasible initial guess
 
@@ -19,6 +19,7 @@ for i = 1:100
         disp("Got it")
         disp(i)
         disp([p' quat_XY'])
+        pose_0 = [p' quat_XY']';
         break
     end
 end
