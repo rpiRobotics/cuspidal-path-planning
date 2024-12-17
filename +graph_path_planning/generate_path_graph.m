@@ -55,7 +55,7 @@ for j = (i+1):min(i+1, N) % TODO was 5
                 continue
             end
         end
-        weight_i = norm(wrapToPi(Q_i(:,x) - Q_j(:,y))) / (j-i);
+        weight_i = norm(wrapToPi(Q_i(:,x) - Q_j(:,y)))^2 / (j-i);
         if weight_i < THRESH
             tails = [tails i*W+x];
             heads = [heads j*W+y];

@@ -41,7 +41,7 @@ axis on
 
 %% 2D plot
 
-h_fig = figure(10);
+h_fig = figure(10); delete(findall(gcf,'type','annotation'))
 tiledlayout(1,1,'TileSpacing','none','Padding','compact');
 nexttile
 figure_size = 2*[1.5 2.45];
@@ -55,9 +55,11 @@ findfigs
 
 plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
 plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.green)
+annotation('arrow', [0.61 0.57], [0.7 0.75])
 
-plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.red);
-plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.green)
+plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
+plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.green);
+annotation('arrow', [0.45 0.5], [0.55 0.45])
 
 zv = [0;0;0];
 ez = [0;0;1];

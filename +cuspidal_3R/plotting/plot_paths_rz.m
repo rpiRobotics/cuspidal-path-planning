@@ -15,7 +15,7 @@ pose_0 = moveL_pose_0;
 optimized = moveL_optimized;
 %%
 
-h_fig = figure(10);
+h_fig = figure(10);  delete(findall(gcf,'type','annotation'))
 tiledlayout(1,1,'TileSpacing','none','Padding','compact');
 nexttile
 figure_size = 2*[1.5 2.45];
@@ -29,9 +29,11 @@ findfigs
 
 plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
 plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.green)
+annotation('arrow', [0.48 0.5], [0.68 0.62])
 
 plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.red);
 plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.green)
+annotation('arrow', [0.71 0.76], [0.62 0.57])
 
 fplot(r_sing_A, z_sing_A, 'k');
 fplot(r_sing_B, z_sing_B, 'k'); 
