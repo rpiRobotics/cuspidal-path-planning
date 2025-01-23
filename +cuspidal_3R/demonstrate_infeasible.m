@@ -1,3 +1,5 @@
+% q1 vs lambda for infeasible straight-line task space path
+
 kin = cuspidal_3R.get_kin;
 
 p_1 = [1; 0; 0]; % 0 feasible
@@ -50,8 +52,9 @@ set(h_fig, "Units", "pixels")
 findfigs
 
 % plot(lambda, q1_path' , '.k');
-G = graph_path_planning.generate_path_graph(Q_path, thresh = 2.5e-1);
-graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 1, lambda=lambda, display_dots=false, display_SF=false, bold_det_J=det_J_path);
+G = graph_path_planning.generate_path_graph(Q_path, thresh = (2.5e-1)^2);
+graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 1, lambda=lambda, ...
+    display_dots=false, display_SF=false, bold_det_J=det_J_path, color = diagrams.colors.orange);
 ylim([-5*pi/4, pi/4]);
 ylabel("$q_1$", Interpreter="latex");
 xlabel("$\lambda/L$", Interpreter="latex");

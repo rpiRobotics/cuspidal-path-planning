@@ -13,14 +13,14 @@ end
 set(h_fig, "Units", "pixels")
 findfigs
 
- % TODO convert to RMS?
-plot(history_A(1,:), history_A(2,:), '.-k'); hold on
-plot(history_B(1,:), history_B(2,:), '.-', Color=diagrams.colors.dark_red); hold off
+
+% Important!! Make sure x values are >0 for log plot
+semilogx(history_A(1,:)+1, calc_RMS(history_A(2,:)), '.-k'); hold on
+semilogx(history_B(1,:)+1, calc_RMS(history_B(2,:)), '.-', Color=diagrams.colors.dark_red); hold off
 
 
-
-xlabel("Iteration", Interpreter='latex');
-ylabel("Error", Interpreter='latex'); % TODO label units
+xlabel("Iteration (Log scale)", Interpreter='latex');
+ylabel("RMS Error (rad/m)", Interpreter='latex');
 
 fontsize(2*8, 'points')
 xaxisproperties= get(gca, 'XAxis');
@@ -30,3 +30,19 @@ yaxisproperties.TickLabelInterpreter = 'latex';
 
 %%
 diagrams.save(gcf, 'opt_history_CRX')
+
+%%
+function RMS = calc_RMS(W)
+
+N = 500;
+
+[~, p_path_orig] = example_toolpath.helix(N=N);
+
+DeltaT = diff(p_path_orig')';
+L = sum(vecnorm(DeltaT));
+DeltaLambda = L/(N-1);
+
+C = W / DeltaLambda;
+
+RMS = sqrt(C/L);
+end

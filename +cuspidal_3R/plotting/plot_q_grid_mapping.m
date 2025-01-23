@@ -1,3 +1,9 @@
+% 1. One aspect in joint space q_2 and q_3
+%   1A. Nonsingular change of solution straight line in joint space
+% 2. One aspect in task space r vs z
+%   2A. Nonsinuglar change of solution loop in task space
+%   2B. Infeasible straight-line path in task space
+
 syms q2_sym q3_sym real
 
 kin = cuspidal_3R.get_kin;
@@ -127,7 +133,7 @@ end
 fplot(q3_bounds(1), [-pi, pi],'k');
 fplot(q3_bounds(1)+pi, [-pi, pi],'k');
 
-plot([nonsingular.Q_A(2) nonsingular.Q_B(2)], [nonsingular.Q_A(3) nonsingular.Q_B(3)], 'k', linewidth=1.5)
+plot([nonsingular.Q_A(2) nonsingular.Q_B(2)], [nonsingular.Q_A(3) nonsingular.Q_B(3)], color=diagrams.colors.purple, linewidth=2.5)
 
 
 xlabel("$q_2$", Interpreter='latex');
@@ -222,9 +228,9 @@ z_sing_B = subs(z, q3_sym, q3_bounds(1)+pi);
 fplot(r_sing_A, z_sing_A, 'k');
 fplot(r_sing_B, z_sing_B, 'k'); 
 
-diagrams.line(infeasible.p_A, infeasible.p_B)
+diagrams.line(infeasible.p_A, infeasible.p_B, color = diagrams.colors.orange, LineWidth=2.5);
 
-plot(nonsingular.r_path, nonsingular.z_path, 'k', LineWidth=1.5);
+plot(nonsingular.r_path, nonsingular.z_path, color = diagrams.colors.purple, LineWidth=2.5);
 
 xlabel("$\rho = \sqrt{x^2+y^2}$", Interpreter="latex");
 ylabel("$z$", Interpreter="latex");
