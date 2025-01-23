@@ -5,7 +5,6 @@ pose_0 = moveL_pose_0;
 [R_path_orig, p_path_orig] = example_toolpath.moveL(eye(3), eye(3), [0;0;0], [0;0;0.5], [], [], 100);
 
 %% Helix
-pose_0 = helix_pose_0_B;
 [R_path_orig, p_path_orig] = example_toolpath.helix(N = 500);
 
 %% Find a feasible initial guess
@@ -26,6 +25,11 @@ end
 
 %% Optimize
 
+[optimized_A, history_A] = optimize_with_history(helix_pose_0_A, R_path_orig, p_path_orig, kin)
+%%
+
+[optimized_B, history_B] = optimize_with_history(helix_pose_0_B, R_path_orig, p_path_orig, kin)
+%%
 options = optimset('PlotFcns',@optimplotfval, 'TolFun', 1e-3, 'TolX', 1e-3);
 optimized = fminsearch(@(pose)CRX.path_norm(pose(1:3), pose(4:6), p_path_orig, R_path_orig, kin), pose_0, options);
 
@@ -40,3 +44,22 @@ graph_path_planning.plot_path_graph(G, Q_path, 2);
 Q_optimal = graph_path_planning.highlight_optimal_path(G, Q_path);
 %%
 plot(Q_optimal');
+
+
+
+%%
+function [optimized, history] = optimize_with_history(pose_0, R_path_orig, p_path_orig, kin)
+    history=[];
+    options = optimset('PlotFcns',@optimplotfval, 'outputFcn', @out, 'TolFun', 1e-3, 'TolX', 1e-3);
+    optimized = fminsearch(@(pose)CRX.path_norm(pose(1:3), pose(4:6), p_path_orig, R_path_orig, kin), pose_0, options);
+    
+    %Output Function
+    function stop = out(x, optimValue, state)
+        stop = false;
+        switch state
+            case 'iter'
+                history=[history [optimValue.iteration; optimValue.fval]];
+        
+        end
+    end
+end
