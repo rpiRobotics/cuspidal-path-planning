@@ -1,3 +1,5 @@
+% Run plot_singularities_better.m first
+
 kin = cuspidal_3R.get_kin;
 
 ex = [1;0;0];
@@ -20,7 +22,8 @@ diagrams.robot_plot(kin, q, ...
     show_arrows = false, ...
     show_base_frame = false, ...
     show_task_frame = false, ...
-    show_arrow_labels = false)
+    show_arrow_labels = false, ...
+    show_dots = false)
 
 diagrams.arrow(zv, 4*ex);
 diagrams.arrow(-3.5*ez, 3.5*ez);
@@ -28,6 +31,7 @@ diagrams.text(4*ex, "$\rho$", verticalAlignment='bottom', margin=0);
 diagrams.text(3.5*ez, "$z$", verticalAlignment='middle', margin=5)
 
 diagrams.dot(p);
+diagrams.dot(rot([0;0;1], deg2rad(20))*p, color=diagrams.colors.red);
 diagrams.angle_arc(p, ez, ez*p(3), deg2rad(20));
 diagrams.text(rot(ez, deg2rad(12))*p, "$\phi$", ...
     horizontalAlignment='center', verticalAlignment="bottom");
