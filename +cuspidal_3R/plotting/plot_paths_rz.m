@@ -1,4 +1,5 @@
-% Run plot_singularities.m first
+% Task space plots of poses before and after optimization
+% Run plot_singularities_better.m first
 
 cuspidal_3R.initial_poses()
 cuspidal_3R.optimized_poses()
@@ -27,12 +28,12 @@ end
 set(h_fig, "Units", "pixels")
 findfigs
 
-plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
-plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.green)
+plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.blue); hold on
+plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.blue)
 annotation('arrow', [0.48 0.5], [0.68 0.62])
 
-plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.red);
-plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.green)
+plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.dark_green);
+plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.dark_green)
 annotation('arrow', [0.71 0.76], [0.62 0.57])
 
 fplot(r_sing_A, z_sing_A, 'k');

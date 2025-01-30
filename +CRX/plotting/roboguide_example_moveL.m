@@ -47,10 +47,9 @@ yline(0);
 % Generate det(J) vs lambda
 det_J_path = graph_path_planning.Q_to_det_J(Q_path, kin);
 
-plot(lambda, det_J_path', 'k.'); yline(0);
+plot(lambda, det_J_path, 'k.'); yline(0);
 
 %%
-lambda = linspace(0, 1,N);
 plot(lambda, squeeze(Q_path(6,:,:))', 'k.', MarkerSize=2); 
 % plot(lambda, squeeze(Q_path(6,:,:))'+2*pi, 'k.', MarkerSize=2); hold off
 ylim([-pi pi])
@@ -58,7 +57,6 @@ xlabel("\lambda")
 ylabel("q_6")
 
 %%
-lambda = linspace(0, 1,N);
 plot(lambda, squeeze(Q_path(4,:,:))', 'k.', MarkerSize=2); 
 % plot(lambda, squeeze(Q_path(6,:,:))'+2*pi, 'k.', MarkerSize=2); hold off
 ylim([-pi pi])
@@ -76,6 +74,12 @@ W_B = Q_path(:,:,end);
 W_B(3,:) = wrapToPi(W_B(3,:) - W_B(2,:));
 rad2deg(W_B(:,2))
 T_B
+%% Calculate which nodes form the feasible paths
+
+reachable_from_start = bfsearch(G, 1);
+reachable_to_end = bfsearch(flipedge(G), 2);
+
+all_feasible_path_nodes = intersect(reachable_from_start, reachable_to_end);
 
 %%
 h_fig = figure(10);
@@ -94,7 +98,7 @@ findfigs
 
 % plot(lambda, squeeze(Q_path(4,:,:))', 'k.'); 
 G = graph_path_planning.generate_path_graph(Q_path, thresh = 1, det_J_path=det_J_path);
-graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 4, lambda=lambda, ...
+graph_path_planning.diagrams_plot_path_graph(G, all_feasible_path_nodes, Q_path, 4, lambda=lambda, ...
     display_dots=false, skip_wraparound=true, lambda_add_vertical=extras, ...
     display_SF=false, LineWidth=1);
 

@@ -1,3 +1,5 @@
+% Task space plots of poses before and after optimization
+
 kin = define_CRX;
 q = zeros([6 1]);
 CRX.initial_poses;
@@ -53,12 +55,12 @@ end
 set(h_fig, "Units", "pixels")
 findfigs
 
-plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
-plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.green)
+plot_path(pose_0_A(1:3), pose_0_A(4:6), p_path_orig, 'color', diagrams.colors.blue); hold on
+plot_path(optimized_A(1:3), optimized_A(4:6), p_path_orig, 'color', diagrams.colors.blue)
 annotation('arrow', [0.61 0.57], [0.7 0.75])
 
-plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.red); hold on
-plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.green);
+plot_path(pose_0_B(1:3), pose_0_B(4:6), p_path_orig, 'color', diagrams.colors.dark_green); hold on
+plot_path(optimized_B(1:3), optimized_B(4:6), p_path_orig, 'color', diagrams.colors.dark_green);
 annotation('arrow', [0.45 0.5], [0.55 0.45])
 
 zv = [0;0;0];

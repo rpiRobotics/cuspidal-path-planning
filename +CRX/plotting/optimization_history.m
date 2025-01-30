@@ -1,6 +1,8 @@
+% RMS error vs optimization iteration
+
 load("+CRX\plotting\opt_history_CRX_A.mat")
 load("+CRX\plotting\opt_history_CRX_B.mat")
-%%
+
 h_fig = figure(10);
 tiledlayout(1,1,'TileSpacing','none','Padding','compact');
 nexttile
@@ -15,8 +17,8 @@ findfigs
 
 
 % Important!! Make sure x values are >0 for log plot
-semilogx(history_A(1,:)+1, calc_RMS(history_A(2,:)), '.-k'); hold on
-semilogx(history_B(1,:)+1, calc_RMS(history_B(2,:)), '.-', Color=diagrams.colors.dark_red); hold off
+semilogx(history_A(1,:)+1, calc_RMS(history_A(2,:)), '.-', color = diagrams.colors.blue); hold on
+semilogx(history_B(1,:)+1, calc_RMS(history_B(2,:)), '.-', Color=diagrams.colors.dark_green); hold off
 
 
 xlabel("Iteration (Log scale)", Interpreter='latex');

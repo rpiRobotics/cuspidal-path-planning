@@ -90,6 +90,15 @@ kin = rmfield(kin, 'RT')
 %%
 codegen +IK/IK_2_parallel_2_intersecting.m -args {R_A, T_A, kin}
 
+%% Calculate which nodes form the feasible paths
+
+reachable_from_start = bfsearch(G, 1);
+reachable_to_end = bfsearch(flipedge(G), 2);
+
+all_feasible_path_nodes = intersect(reachable_from_start, reachable_to_end);
+
+
+
 %% 1: Example 10
 
 %%
@@ -122,7 +131,7 @@ G = addedge(G, 2898, 2900, 0);
 
 G = addedge(G, 3033, 3032, 0);
 
-graph_path_planning.diagrams_plot_path_graph(G, [], Q_path, 4, lambda=lambda, display_dots=false, display_SF=false);
+graph_path_planning.diagrams_plot_path_graph(G, all_feasible_path_nodes, Q_path, 4, lambda=lambda, display_dots=false, display_SF=false);
 
 ylim([-pi pi]);
 ylabel("$q_4$", Interpreter="latex");

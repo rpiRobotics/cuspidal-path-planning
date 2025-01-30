@@ -1,3 +1,5 @@
+% RMS error vs optimization iteration
+
 pose_A = load("+cuspidal_3R\plotting\opt_history_3R_A.mat");
 pose_B = load("+cuspidal_3R\plotting\opt_history_3R_B.mat");
 
@@ -15,8 +17,8 @@ findfigs
 
 
 % Important!! Make sure x values are >0 for log plot
-semilogx(pose_A.history(1,:)+1, calc_RMS(pose_A.history(2,:)), '.-k'); hold on
-semilogx(pose_B.history(1,:)+1, calc_RMS(pose_B.history(2,:)), '.-', Color=diagrams.colors.dark_red);
+semilogx(pose_A.history(1,:)+1, calc_RMS(pose_A.history(2,:)), '.-', color = diagrams.colors.blue); hold on
+semilogx(pose_B.history(1,:)+1, calc_RMS(pose_B.history(2,:)), '.-', color=diagrams.colors.dark_green);
 hold off
 
 
