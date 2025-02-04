@@ -1,11 +1,15 @@
 # Cuspidal-Path-Planning
 
-Cuspidal robot identification, path planning, and path optimization from "Path Planning and Optimization for Cuspidal 6R Manipulators."
+Cuspidal robot identification, path planning, and path optimization from ["Path Planning and Optimization for Cuspidal 6R Manipulators."](https://arxiv.org/abs/2501.18505)
 
 Robot examples used:
 * Cuspidal 3R spatial manipulator
 * FANUC CRX-10ia/L
 * ABB GoFa
+
+
+![Cuspidal Path Planning Graphical Abstract (1)](https://github.com/user-attachments/assets/9f54c7ee-c1ea-4f2a-869d-2ea96757537c)
+
 
 Abstract: A cuspidal robot can move from one inverse kinematics (IK) solution to another without crossing a singularity. Multiple industrial robots are cuspidal. They tend to have a beautiful mechanical design, but they pose path planning challenges.
 A task-space path may have a valid IK solution for each point along the path, but a continuous joint-space path may depend on the choice of the IK solution or even be infeasible.
