@@ -112,6 +112,8 @@ yticklabels({"$-\pi$", "$-\frac{\pi}{2}$", "$0$", "$\frac{\pi}{2}$", "$\pi$"})
 
 xticks([1:3:N])
 xlim([-1, N+2])
+xt = get(gca, 'XTick');
+xticklabels(string(xt - 1)); % Adjust tick labels - 0 index rather than 1
 
 text(0  ,0, "$S$", Interpreter="latex", FontSize = 2*10, HorizontalAlignment="right", VerticalAlignment="bottom");
 text(N+1,0, "$F$", Interpreter="latex", FontSize = 2*10, HorizontalAlignment="left", VerticalAlignment="bottom");
